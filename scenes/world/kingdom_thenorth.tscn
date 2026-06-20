@@ -1,0 +1,11 @@
+[gd_scene format=4 uid="uid://bk3s0sl6he0fx"]
+
+[ext_resource type="Script" uid="uid://bhevignhh17dm" path="res://scenes/world/kingdom_thenorth.gd" id="1_l3xlb"]
+[ext_resource type="TileSet" uid="uid://ve83hthjig2k" path="res://data/north_tileset.tres" id="2_cxf0i"]
+
+[node name="Node2D" type="Node2D" unique_id=833512714]
+script = ExtResource("1_l3xlb")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1891878203]
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAADAAEAAQAAAAAAAAACAAEAAQAAAAAAAAABAAEAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAIAAQAAAAAAAAACAAIAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAACAAMAAQAAAAAAAAABAAMAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAQAAQAAAAAAAAACAAQAAQAAAAAAAAADAAQAAQAAAAAAAAAEAAQAAQAAAAAAAAA=")
+tile_set = ExtResource("2_cxf0i")

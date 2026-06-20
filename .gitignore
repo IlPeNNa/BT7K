@@ -1,0 +1,19 @@
+# Godot 4+ specific ignores
+.godot/
+*.tmp
+*.import
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.directory
+
+# IDE / editors
+.vscode/
+*.code-workspace
+.idea/
+
+# Build / export
+export_presets.cfg
+exports/
+android/
