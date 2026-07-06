@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://dcwum6g33fubq"]
+
+[ext_resource type="Script" uid="uid://cmxesur25wk40" path="res://scripts/building_data.gd" id="1_33q4u"]
+
+[resource]
+script = ExtResource("1_33q4u")
+building_id = "walls"
+display_name = "Mura"
+category = 3
+cost = Dictionary[String, int]({
+"stone": 25,
+"wood": 5
+})
+metadata/_custom_type_script = "uid://cmxesur25wk40"

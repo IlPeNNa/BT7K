@@ -1,0 +1,373 @@
+WELCOME
+There *is* no game more beautiful than an isometric game. Thank you for buying "Ancient Isometic Tileset Volume I". With this set you can get started building scenes with castles, dungeons, towns with a classic fantasy medieval setting.
+
+ABOUT and a general opinion on isometric tiles
+
+Isometric is just complicated. There is no perfect solution and some compromises must be made.
+
+The tiles are designed so that most tiles will work in a simple one level isometric engine. Extra detail comes in the form of decals or "splat" images that are used to make the word look more detailed.
+
+The tiles work within the Tiled editor and the sample is given as a tiled tileset and example levels. So, if your engine works in the same way as Tiled, these tiles will work for your engine.
+
+Included is an isometric projected grid. The projection used is 2:1, available template on https://opengameart.org/content/isometric-grid-pack.
+
+Tile images are either 512x256 (e.g. walls, ground, etc) or free form sized (e.g. roofs, trees, etc).
+
+Heights for tiles inside the images such as walls, are 160x128 in order to present a clear appearance.
+
+Some tiles, like building cubes are 128x128 which are intended for consistent stacking with smooth texture repeating without overlap.
+
+So, an option if you want to build a tall structure is to use the 128x128 tiles and on the top level use the 160x128 tiles.
+
+With some extra effort for arranging tiles into layers, interiors are an option, as well as interior multi-story structures.
+
+For some isometric solutions, the simplest option may be to create your own sliced up tile. There is a sample tile corner_w to demonstrate this in Interior_2 directory.
+
+Likewise, for roofs you may wish to modify the tiles and reposition the images.
+
+TILE LIST
+TOTAL: 222 (as of 14 09)
+
+Ancient Isometric Tiles Volume 1 (Release 1)
+
+archway	
+	big
+		wall_e
+		wall_e2
+		wall_w
+		wall_w2
+		wall_s
+		wall_s2
+		wall_n
+		wall_n2
+	small
+		arch1
+		arch2
+		drain1	
+		drain2
+blocks
+	128x128x128_a
+	128x128x128_b
+	128x128x128_c
+	160x128x128_a
+	160x128x128_b
+	128x128x128_arch1
+	128x128x128_arch2
+	pillar_128x8x8_a
+	pillar_128x8x8_b
+	pillar_128x16x16_a
+	slab_64x64x128_a
+	slab_64x128x64_a
+	concrete slab gutter bars 1
+	concrete slab gutter bars 2
+	todo...
+	160, 128 blocks of all textures
+
+clutter
+	boxgoods
+	boxgoods1
+	boxgoods2
+	boxgoods3
+	boxgoods4
+	fence1
+	fence2
+	plate
+	rock1
+	small_table_1
+	small_table_2
+	tent1
+	tent2
+	pontoon1
+	pillar1
+	pillar2
+	stall1
+	stall2
+	stall3
+	stall4
+	stool
+	chair1
+	chair2
+	wooden_railing1
+	wooden_railing2
+	grave_stone1
+	grave_stone2
+	signpost
+	door plate
+	hanging_sign_1
+	
+	hanging_sign_2
+	hanging_sign_3
+	hanging_sign_4
+todo...
+					
+	bookshelf1
+	bookshelf2
+	cupboard1
+	cupboard2
+	painting1
+	painting2
+	chest
+	gold
+	ladder1
+	ladder2
+	trapdoor
+	rug1
+	rug2
+	rug3
+	rug4
+	firepit
+	fireplace1
+	fireplace2
+	fire anim
+	wall torch
+	bed1
+	bed2
+	rubble_bricks1
+	well?
+
+doors
+	todo...
+	door_open1
+	door_closed1
+	door_open2
+	door_closed2
+	door_huge1
+	portculus
+
+ground
+	black
+	cobble
+	dirt
+	grass
+	grass_tile
+	wood
+
+nature
+	grassclump1
+	reeds1
+	leftmound
+	rightmound
+	midmound
+	wholemound
+	tree1
+	todo...
+	stone1
+	stone2
+
+overlay
+	dirtoverlay1
+	manhole
+	todo...
+	posters1
+	posters2
+
+paths
+	stream
+		stream1
+		stream2
+		stream3
+		stream4
+		stream5
+		stream6
+		stream7
+		stream8
+		stream9
+		stream10
+		stream11
+		stream12
+
+	path
+		todo...
+		path1
+		path2
+		path3
+		path4
+		path5
+		path6
+		path7
+		path8
+
+pavement
+	back-round
+	front-round
+	left-round
+	middle
+	right-round
+	side1
+	side2
+	side3
+	side4
+	sidewalk
+
+refgrid
+	Grid 512x512 128x64
+
+roof
+	roof_1
+		roof_a
+		roof_b
+		roof_c
+		roof_d
+	roof_2
+		roof_a
+		roof_b
+		roof_c
+		roof_d
+		roof_e
+		roof_f
+	roof_3
+		roof_a
+		roof_b
+		roof_c
+		roof_d
+	roof_4
+		roof_a
+		roof_b
+		roof_c
+		roof_d
+
+stairs
+	type_1
+		stairs_1
+		stairs_2
+		stairs_3
+		stairs_4		
+	type_2
+		stairs_1
+		stairs_2
+		stairs_3
+		stairs_4		
+
+wall
+	half_height
+		corner_e
+		corner_n
+		corner_s
+		corner_w
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+
+	half_height_turret
+		corner_e
+		corner_n
+		corner_s
+		corner_w
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+	
+	wall_1	
+		corner_e
+		corner_n
+		corner_s
+		corner_w
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+	wall_2
+		corner_e
+		corner_n
+		corner_s
+		corner_w
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+	wall_3
+		corner_e
+		corner_n
+		corner_s
+		corner_w
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+
+	wall_4
+		corner_e
+		corner_n
+		corner_s
+		corner_w
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+	
+	window_1	
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+
+	window_2
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+
+	window_3
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+
+	window_4
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+		
+	window_5
+		wall_e
+		wall_s
+		wall_n
+		wall_w		
+
+	doorway_1
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+
+	doorway_2
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+
+	doorway_3
+		wall_e
+		wall_s
+		wall_n
+		wall_w
+	
+	doorway_4
+		wall_e
+		wall_s
+		wall_n
+		wall_w		
+		
+	doorway_5
+		wall_e
+		wall_s
+		wall_n
+		wall_w		
+
+windows
+	window_1
+	window_2
+	window_3
+	window_4
+	window_5
+	window_6
+	window_small_1
+	window_small_2
+	todo...
+	shutters_1
+	shutters_2
+
+-- The Wanderer Tiles, 2024

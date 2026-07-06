@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://cvs4olkfrpath"]
+
+[ext_resource type="Script" uid="uid://dp5jr6uun3noo" path="res://scenes/ui/main_hud.gd" id="1_ed1ny"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p5rq"]
+bg_color = Color(0.16862746, 0.1254902, 0.09411765, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7882353, 0.65882355, 0.41568628, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="MainHud" type="Control" unique_id=1591838486]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ed1ny")
+
+[node name="BottomBar" type="PanelContainer" parent="." unique_id=2121838500]
+custom_minimum_size = Vector2(220, 60)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="TabRow" type="HBoxContainer" parent="BottomBar" unique_id=1800648586]
+layout_mode = 2
+
+[node name="BuildingsTab" type="Button" parent="BottomBar/TabRow" unique_id=1511409859]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Edifici"
+flat = true
+
+[node name="MapTab" type="Button" parent="BottomBar/TabRow" unique_id=226410872]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Mappa"
+flat = true
+
+[node name="ResearchTab" type="Button" parent="BottomBar/TabRow" unique_id=511063952]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Ricerca"
+flat = true
+
+[node name="InventoryTab" type="Button" parent="BottomBar/TabRow" unique_id=326719825]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+tooltip_text = "Inventario"
+flat = true
+
+[node name="BuildingsPanel" type="Control" parent="." unique_id=2063987056]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -908.0
+offset_right = 420.0
+offset_bottom = -688.0
+grow_vertical = 0
+
+[node name="Background" type="Panel" parent="BuildingsPanel" unique_id=734206626]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3p5rq")
+
+[node name="CategoryTabs" type="HBoxContainer" parent="BuildingsPanel" unique_id=945723067]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_constants/separation = 12
+
+[node name="HousingCatBtn" type="Button" parent="BuildingsPanel/CategoryTabs" unique_id=601787572]
+layout_mode = 2
+text = "Abitazioni"
+
+[node name="ProductionCatBtn" type="Button" parent="BuildingsPanel/CategoryTabs" unique_id=915258719]
+layout_mode = 2
+text = "Produzione"
+
+[node name="DefenseCatBtn" type="Button" parent="BuildingsPanel/CategoryTabs" unique_id=254868238]
+layout_mode = 2
+text = "Difesa"
+
+[node name="BuildingsGrid" type="GridContainer" parent="BuildingsPanel" unique_id=1587124604]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 3
+
+[node name="DemolishBar" type="Control" parent="." unique_id=494623196]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = 16.0
+offset_right = 80.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="DemolishButton" type="Button" parent="DemolishBar" unique_id=1208526972]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.0
+offset_right = 42.0
+offset_bottom = 31.0
+grow_horizontal = 2
+toggle_mode = true
+text = "Demolisci"

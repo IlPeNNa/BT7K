@@ -2,10 +2,72 @@
 
 [ext_resource type="Script" uid="uid://bhevignhh17dm" path="res://scenes/world/kingdom_thenorth.gd" id="1_l3xlb"]
 [ext_resource type="TileSet" uid="uid://ve83hthjig2k" path="res://data/north_tileset.tres" id="2_cxf0i"]
+[ext_resource type="TileSet" uid="uid://ycwhtay65ord" path="res://data/building_grid_tileset.tres" id="3_tss2f"]
+[ext_resource type="Texture2D" uid="uid://b0tw6xkism4j" path="res://assets/sprites/buildings/block 128.png" id="4_fqqtk"]
+[ext_resource type="PackedScene" uid="uid://h7w3cuxdbluy" path="res://scenes/ui/top_bar.tscn" id="4_hjnx4"]
+[ext_resource type="PackedScene" uid="uid://sxg836q8dt74" path="res://scenes/ui/notification_banner.tscn" id="6_30yp6"]
+[ext_resource type="PackedScene" uid="uid://uhj7q6x1qafb" path="res://scenes/ui/pause_menu.tscn" id="7_arfty"]
+[ext_resource type="PackedScene" uid="uid://dobb48xyfiuex" path="res://scenes/ui/info_modal.tscn" id="8_p2btf"]
+[ext_resource type="Script" uid="uid://dynxpo4865eu7" path="res://scenes/ui/info_modal.gd" id="9_egn4p"]
+[ext_resource type="PackedScene" uid="uid://cvs4olkfrpath" path="res://scenes/ui/main_hud.tscn" id="9_f0vm4"]
+[ext_resource type="PackedScene" uid="uid://bby5124ax36ke" path="res://scenes/ui/building_action_bar.tscn" id="10_egn4p"]
 
 [node name="Node2D" type="Node2D" unique_id=833512714]
 script = ExtResource("1_l3xlb")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1891878203]
-tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAADAAEAAQAAAAAAAAACAAEAAQAAAAAAAAABAAEAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAIAAQAAAAAAAAACAAIAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAACAAMAAQAAAAAAAAABAAMAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAQAAQAAAAAAAAACAAQAAQAAAAAAAAADAAQAAQAAAAAAAAAEAAQAAQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAACAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAQAAAAAAAAAAAA=")
 tile_set = ExtResource("2_cxf0i")
+
+[node name="BuildingGrid" type="TileMapLayer" parent="." unique_id=1909872637]
+tile_set = ExtResource("3_tss2f")
+
+[node name="HeatZoneVisual" type="Node2D" parent="." unique_id=698831208]
+
+[node name="GhostPreview" type="Node2D" parent="." unique_id=1031928895]
+z_index = 1
+position = Vector2(386, 266)
+
+[node name="Footprint" type="Polygon2D" parent="GhostPreview" unique_id=529508209]
+
+[node name="BuildingSprite" type="Sprite2D" parent="GhostPreview" unique_id=2065686417]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_fqqtk")
+offset = Vector2(0, -64)
+
+[node name="PlacedBuildings" type="Node2D" parent="." unique_id=1527303505]
+y_sort_enabled = true
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=811135520]
+
+[node name="TopBar" parent="UILayer" unique_id=508135795 instance=ExtResource("4_hjnx4")]
+
+[node name="NotificationBanner" parent="UILayer" unique_id=1169147379 instance=ExtResource("6_30yp6")]
+
+[node name="PauseMenu" parent="UILayer" unique_id=1948089660 instance=ExtResource("7_arfty")]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
+
+[node name="InfoModal" parent="UILayer" unique_id=589882191 instance=ExtResource("8_p2btf")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_egn4p")
+
+[node name="MainHud" parent="UILayer" unique_id=1591838486 instance=ExtResource("9_f0vm4")]
+offset_left = -1.0
+offset_right = -1.0
+
+[node name="BuildingActionBar" parent="UILayer" unique_id=1595548486 instance=ExtResource("10_egn4p")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1377287461]

@@ -1,12 +1,13 @@
 [gd_resource type="TileSet" format=3 uid="uid://ve83hthjig2k"]
 
-[ext_resource type="Texture2D" uid="uid://cbgbeyafyl85d" path="res://assets/tiles/grass_placeholder.png" id="1_sfpwa"]
+[ext_resource type="Texture2D" uid="uid://bu1fq852j6sl8" path="res://assets/tiles/Isometric tileset/tile_images/ground/grasstile1.png" id="1_sfpwa"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfpwa"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cjdt1"]
 texture = ExtResource("1_sfpwa")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 128)
 0:0/0 = 0
 
 [resource]
-tile_size = Vector2i(64, 64)
-sources/1 = SubResource("TileSetAtlasSource_sfpwa")
+tile_shape = 1
+tile_size = Vector2i(256, 128)
+sources/0 = SubResource("TileSetAtlasSource_cjdt1")

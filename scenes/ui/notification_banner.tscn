@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://sxg836q8dt74"]
+
+[ext_resource type="Script" uid="uid://bto4dd3qili3" path="res://scenes/ui/notification_banner.gd" id="1_h1lkk"]
+
+[node name="NotificationBanner" type="Control" unique_id=1169147379]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 70.0
+offset_bottom = 70.0
+grow_horizontal = 2
+script = ExtResource("1_h1lkk")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=2111511608]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="MessageLabel" type="Label" parent="Panel" unique_id=2008656373]
+layout_mode = 2
+
+[node name="HideTimer" type="Timer" parent="." unique_id=1419086928]

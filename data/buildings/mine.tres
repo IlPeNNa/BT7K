@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://dko70bjae6ico"]
+
+[ext_resource type="Script" uid="uid://cmxesur25wk40" path="res://scripts/building_data.gd" id="1_bym1h"]
+
+[resource]
+script = ExtResource("1_bym1h")
+building_id = "mine"
+display_name = "Miniera"
+category = 2
+cost = Dictionary[String, int]({
+"food": 10,
+"wood": 30
+})
+produces_resource = "stone"
+production_amount = 4
+production_interval_seconds = 6.0
+metadata/_custom_type_script = "uid://cmxesur25wk40"

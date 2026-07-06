@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dobb48xyfiuex"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2btf"]
+
+[node name="InfoModal" type="Control" unique_id=589882191]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DimBackground" type="ColorRect" parent="." unique_id=2126652338]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.1882353)
+
+[node name="ModalPanel" type="Panel" parent="." unique_id=2135683687]
+custom_minimum_size = Vector2(500, 350)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2btf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModalPanel" unique_id=1443822117]
+layout_mode = 0
+offset_right = 58.0
+offset_bottom = 112.0
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="ModalPanel/VBoxContainer" unique_id=669621296]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.41568628, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="InfoContentLabel" type="Label" parent="ModalPanel/VBoxContainer" unique_id=2017788254]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="ModalPanel/VBoxContainer" unique_id=319963543]
+layout_mode = 2
+text = "Chiudi"

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://h7w3cuxdbluy"]
+
+[ext_resource type="Script" uid="uid://dg1dfwn8o8ojo" path="res://scenes/ui/top_bar.gd" id="1_xsohi"]
+
+[node name="TopBar" type="Control" unique_id=508135795]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_xsohi")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2053851308]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WoodLabel" type="Label" parent="HBoxContainer" unique_id=799238231]
+layout_mode = 2
+
+[node name="StoneLabel" type="Label" parent="HBoxContainer" unique_id=2085996536]
+layout_mode = 2
+
+[node name="FoodLabel" type="Label" parent="HBoxContainer" unique_id=890768896]
+layout_mode = 2
+
+[node name="PopLabel" type="Label" parent="HBoxContainer" unique_id=364868944]
+layout_mode = 2

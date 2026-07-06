@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://8ao4l3yx713x"]
+
+[ext_resource type="Script" uid="uid://cmxesur25wk40" path="res://scripts/building_data.gd" id="1_sveb5"]
+
+[resource]
+script = ExtResource("1_sveb5")
+building_id = "great_keep"
+display_name = "Grande Inverno"
+cost = Dictionary[String, int]({
+"food": 50,
+"stone": 150,
+"wood": 100
+})
+metadata/_custom_type_script = "uid://cmxesur25wk40"

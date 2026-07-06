@@ -11,14 +11,21 @@ config_version=5
 [application]
 
 config/name="BeyondTheSevenKingdoms"
+run/main_scene="uid://j1f8ytk2maba"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://s3ce8brevm6u"
 
 [autoload]
 
 GameManager="*uid://2ykh1ggp6s1i"
 ResourceManager="*uid://texbpy7cp3xx"
 SaveManager="*uid://vwgfld8qr0ev"
+NotificationManager="*uid://co1pxe0vnvu5w"
+SettingsManager="*uid://2k36kntuba2u"
 
 [display]
 

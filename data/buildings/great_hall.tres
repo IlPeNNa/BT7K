@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://b4a45fmgh7y6d"]
+
+[ext_resource type="Script" uid="uid://cmxesur25wk40" path="res://scripts/building_data.gd" id="1_ljjqi"]
+
+[resource]
+script = ExtResource("1_ljjqi")
+building_id = "great_hall"
+display_name = "Sala Grande"
+is_removable = false
+metadata/_custom_type_script = "uid://cmxesur25wk40"

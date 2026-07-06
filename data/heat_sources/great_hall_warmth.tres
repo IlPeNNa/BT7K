@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="HeatSourceData" format=3 uid="uid://d5mv6bebebw5"]
+
+[ext_resource type="Script" uid="uid://w1v0cclb25ks" path="res://scripts/heat_source_data.gd" id="1_yr6l3"]
+
+[resource]
+script = ExtResource("1_yr6l3")
+metadata/_custom_type_script = "uid://w1v0cclb25ks"

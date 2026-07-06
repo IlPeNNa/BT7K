@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://drye2gm3l4pyk"]
+
+[ext_resource type="Texture2D" uid="uid://b0tw6xkism4j" path="res://assets/sprites/buildings/block 128.png" id="1_lwebc"]
+[ext_resource type="Script" uid="uid://qq0kbrhcu8fg" path="res://scenes/buildings/placed_building.gd" id="1_tewmn"]
+
+[node name="PlacedBuilding" type="Sprite2D" unique_id=1241633762]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_lwebc")
+offset = Vector2(0, -64)
+script = ExtResource("1_tewmn")
+
+[node name="ProductionTimer" type="Timer" parent="." unique_id=638749665]
+
+[node name="ReadyIcon" type="Node2D" parent="." unique_id=1919823895]
+
+[node name="IconShape" type="Polygon2D" parent="ReadyIcon" unique_id=391782383]
+color = Color(1.353256, 1.2610514, 0.6651851, 1)
+
+[node name="SelectSound" type="AudioStreamPlayer2D" parent="." unique_id=2067650270]

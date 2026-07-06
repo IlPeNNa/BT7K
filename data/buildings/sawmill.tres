@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://dmi451d6sknml"]
+
+[ext_resource type="Script" uid="uid://cmxesur25wk40" path="res://scripts/building_data.gd" id="1_7v8ir"]
+
+[resource]
+script = ExtResource("1_7v8ir")
+building_id = "sawmill"
+display_name = "Segheria"
+category = 2
+cost = Dictionary[String, int]({
+"stone": 15,
+"wood": 10
+})
+produces_resource = "wood"
+production_amount = 5
+production_interval_seconds = 5.0
+metadata/_custom_type_script = "uid://cmxesur25wk40"
