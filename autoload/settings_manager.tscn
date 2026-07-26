@@ -120,6 +120,26 @@ size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 
+[node name="CameraFocusRow" type="HBoxContainer" parent="CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer" unique_id=183532149]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/CameraFocusRow" unique_id=785592719]
+layout_mode = 2
+text = "Zoom automatico su edificio selezionato"
+
+[node name="CameraFocusToggle" type="CheckButton" parent="CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/CameraFocusRow" unique_id=331973274]
+layout_mode = 2
+
+[node name="ConfirmSpendRow" type="HBoxContainer" parent="CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer" unique_id=596175953]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/ConfirmSpendRow" unique_id=1012440415]
+layout_mode = 2
+text = "Conferma spesa risorse"
+
+[node name="ConfirmSpendToggle" type="CheckButton" parent="CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/ConfirmSpendRow" unique_id=1475839721]
+layout_mode = 2
+
 [node name="CloseButton" type="Button" parent="CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer" unique_id=827207197]
 layout_mode = 2
 text = "Chiudi"

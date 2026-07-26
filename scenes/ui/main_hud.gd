@@ -42,6 +42,10 @@ signal any_menu_action
 
 const BUILDINGS_DATA_PATH := "res://data/buildings/"
 const BUILDINGS_PER_PAGE := 4  # 2 colonne x 2 righe, come da riferimento FoE
+const BUILDING_PLACEHOLDER_ICON: Texture2D = preload("res://assets/sprites/buildings/block 128.png")
+const BUILDING_CARD_SIZE := Vector2(140, 160)
+const BUILDING_INFO_POPUP_SCENE: PackedScene = preload("res://scenes/ui/building_info_popup.tscn")
+const POPUP_OFFSET := Vector2(12, 0)  # piccolo margine tra bordo pannello e popup
 var _current_page: int = 0
 
 # Cache di tutte le BuildingData caricate, per non rileggere il disco
@@ -50,6 +54,7 @@ var _all_buildings: Array[BuildingData] = []
 var _current_category: BuildingData.Category = BuildingData.Category.HOUSING
 
 var _active_panel: Control = null
+var _info_popup: PanelContainer = null
 
 # Tween attivo per l'animazione del pannello: lo teniamo tracciato per
 # poterlo interrompere se l'utente clicca più volte di fretta, altrimenti
@@ -92,6 +97,11 @@ func _ready() -> void:
 	defense_cat_btn.pressed.connect(func(): _select_category(BuildingData.Category.DEFENSE))
 
 	_load_all_buildings()
+	
+	_info_popup = BUILDING_INFO_POPUP_SCENE.instantiate()
+	add_child(_info_popup)
+	_info_popup.visible = false
+	_info_popup.mouse_filter = Control.MOUSE_FILTER_IGNORE  # il popup non deve intercettare hover/click, solo mostrare info
 	_select_category(BuildingData.Category.HOUSING)
 	
 	first_page_button.pressed.connect(func(): _go_to_page(0))
@@ -127,6 +137,7 @@ func _toggle_panel(panel: Control) -> void:
 		_animate_panel_out(_active_panel)
 		if _active_panel == buildings_panel:
 			buildings_menu_closed.emit()
+			_hide_info_popup()
 	_active_panel = panel
 	if _active_panel != null:
 		_animate_panel_in(_active_panel)
@@ -211,9 +222,16 @@ func _refresh_buildings_grid() -> void:
 	for i in range(start_index, end_index):
 		var data := filtered[i]
 		var btn := Button.new()
-		btn.text = "%s\n%s" % [data.display_name, _format_cost(data.cost)]
-		btn.custom_minimum_size = Vector2(120, 60)
+		btn.text = data.display_name
+		btn.icon = BUILDING_PLACEHOLDER_ICON
+		btn.expand_icon = true
+		btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
+		btn.alignment = HORIZONTAL_ALIGNMENT_CENTER
+		btn.custom_minimum_size = BUILDING_CARD_SIZE
 		btn.pressed.connect(func(): _on_building_selected(data))
+		btn.mouse_entered.connect(func(): _show_info_popup(data, btn))
+		btn.mouse_exited.connect(_hide_info_popup)
 		buildings_grid.add_child(btn)
 
 	_update_page_nav()
@@ -251,6 +269,22 @@ func _format_cost(cost: Dictionary) -> String:
 	for resource_name in cost.keys():
 		parts.append("%d %s" % [cost[resource_name], resource_name])
 	return ", ".join(parts)
+
+
+func _show_info_popup(data: BuildingData, card: Button) -> void:
+	_info_popup.populate(data)
+	_info_popup.visible = true
+	# Posiziona il popup a destra del pannello Menu Edifici, allineato in
+	# verticale alla card sotto il cursore. Usiamo buildings_panel come
+	# riferimento orizzontale (non la card) perché tutte le card devono
+	# aprire il popup nello stesso punto a destra, coerente col mockup FoE.
+	var panel_right_edge := buildings_panel.global_position.x + buildings_panel.size.x
+	var target_y: float = card.global_position.y
+	_info_popup.global_position = Vector2(panel_right_edge, target_y) + POPUP_OFFSET
+
+
+func _hide_info_popup() -> void:
+	_info_popup.visible = false
 
 
 func _on_building_selected(data: BuildingData) -> void:

@@ -12,6 +12,8 @@ const SETTINGS_PATH: String = "user://settings.json"
 @onready var music_slider: HSlider = $CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/MusicRow/MusicSlider
 @onready var sfx_slider: HSlider = $CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/SFXRow/SFXSlider
 @onready var brightness_slider: HSlider = $CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/BrightnessRow/BrightnessSlider
+@onready var camera_focus_toggle: CheckButton = $CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/CameraFocusRow/CameraFocusToggle
+@onready var confirm_spend_toggle: CheckButton = $CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/ConfirmSpendRow/ConfirmSpendToggle
 @onready var close_button: Button = $CanvasLayer/SettingsPanel/DimBackground/Panel/Margin/VBoxContainer/CloseButton
 var _caller_to_restore: Control = null
 
@@ -28,6 +30,8 @@ func _ready() -> void:
 	music_slider.value_changed.connect(_on_music_changed)
 	sfx_slider.value_changed.connect(_on_sfx_changed)
 	brightness_slider.value_changed.connect(_on_brightness_changed)
+	camera_focus_toggle.toggled.connect(_on_camera_focus_toggled)
+	confirm_spend_toggle.toggled.connect(_on_confirm_spend_toggled)
 	close_button.pressed.connect(close_settings)
 
 	if not loaded:
@@ -38,6 +42,8 @@ func _ready() -> void:
 		sfx_slider.value = 1.0
 		brightness_slider.value = 1.0
 		_on_brightness_changed(1.0)
+		camera_focus_toggle.button_pressed = false  # default OFF: nessuno zoom finché l'utente non lo attiva
+		confirm_spend_toggle.button_pressed = false  # default OFF: nessuna conferma richiesta
 	else:
 		# File caricato: i valori sono già negli slider, forza solo gli effetti
 		# collaterali che i segnali avrebbero scatenato (ma non l'hanno fatto
@@ -62,6 +68,14 @@ func close_settings() -> void:
 		_caller_to_restore.visible = true
 		_caller_to_restore = null
 
+## Letto da kingdom_thenorth.gd prima di animare la camera sulla selezione.
+func is_camera_focus_enabled() -> bool:
+	return camera_focus_toggle.button_pressed
+
+## Letto dal codice di piazzamento prima di scalare le risorse.
+func is_confirm_resource_spending_enabled() -> bool:
+	return confirm_spend_toggle.button_pressed
+
 func _linear_from_bus(bus_name: String) -> float:
 	var bus_index: int = AudioServer.get_bus_index(bus_name)
 	return db_to_linear(AudioServer.get_bus_volume_db(bus_index))
@@ -85,12 +99,21 @@ func _on_brightness_changed(value: float) -> void:
 	brightness_overlay.color = Color(0, 0, 0, 1.0 - value)
 	_save_settings()
 
+func _on_camera_focus_toggled(_value: bool) -> void:
+	_save_settings()
+
+func _on_confirm_spend_toggled(_value: bool) -> void:
+	_save_settings()
+
+
 func _save_settings() -> void:
 	var data: Dictionary = {
 		"master": master_slider.value,
 		"music": music_slider.value,
 		"sfx": sfx_slider.value,
 		"brightness": brightness_slider.value,
+		"camera_focus_enabled": camera_focus_toggle.button_pressed,
+		"confirm_resource_spending": confirm_spend_toggle.button_pressed,
 	}
 	var file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
 	if file:
@@ -115,5 +138,7 @@ func _load_settings() -> bool:
 	music_slider.value = parsed.get("music", 1.0)
 	sfx_slider.value = parsed.get("sfx", 1.0)
 	brightness_slider.value = parsed.get("brightness", 1.0)
+	camera_focus_toggle.button_pressed = parsed.get("camera_focus_enabled", false)
+	confirm_spend_toggle.button_pressed = parsed.get("confirm_resource_spending", false)
 	
 	return true

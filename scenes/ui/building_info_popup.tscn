@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bb3cax8gplnwc"]
+
+[ext_resource type="Script" uid="uid://b44x36rpv0yiy" path="res://scenes/ui/building_info_popup.gd" id="1_whq5x"]
+
+[node name="BuildingInfoPopup" type="PanelContainer" unique_id=1108829744]
+script = ExtResource("1_whq5x")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=1012589347]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Margin" unique_id=711668713]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Margin/Content" unique_id=286165889]
+layout_mode = 2
+
+[node name="PopulationRow" type="HBoxContainer" parent="Margin/Content" unique_id=2011051967]
+layout_mode = 2
+
+[node name="PopulationLabel" type="Label" parent="Margin/Content/PopulationRow" unique_id=211960172]
+layout_mode = 2
+text = "Popolazione"
+
+[node name="PopulationValue" type="Label" parent="Margin/Content/PopulationRow" unique_id=1860972629]
+layout_mode = 2
+
+[node name="ProductsHeader" type="Label" parent="Margin/Content" unique_id=158842178]
+layout_mode = 2
+text = "Prodotti"
+
+[node name="ProductionRow" type="HBoxContainer" parent="Margin/Content" unique_id=967069826]
+layout_mode = 2
+
+[node name="ProductionLabel" type="Label" parent="Margin/Content/ProductionRow" unique_id=2138099162]
+layout_mode = 2
+
+[node name="ProductionInterval" type="Label" parent="Margin/Content/ProductionRow" unique_id=1734982864]
+layout_mode = 2
+
+[node name="CostsHeader" type="Label" parent="Margin/Content" unique_id=171312083]
+layout_mode = 2
+text = "Costi di Produzione"
+
+[node name="CostsList" type="VBoxContainer" parent="Margin/Content" unique_id=1149523398]
+layout_mode = 2
