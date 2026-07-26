@@ -26,14 +26,23 @@ signal any_menu_action
 @onready var inventory_tab: Button = $BottomBar/TabRow/InventoryTab
 
 @onready var buildings_panel: Control = $BuildingsPanel
-@onready var housing_cat_btn: Button = $BuildingsPanel/CategoryTabs/HousingCatBtn
-@onready var production_cat_btn: Button = $BuildingsPanel/CategoryTabs/ProductionCatBtn
-@onready var defense_cat_btn: Button = $BuildingsPanel/CategoryTabs/DefenseCatBtn
-@onready var buildings_grid: GridContainer = $BuildingsPanel/BuildingsGrid
+@onready var housing_cat_btn: Button = $BuildingsPanel/ContentColumn/CategoryTabs/HousingCatBtn
+@onready var production_cat_btn: Button = $BuildingsPanel/ContentColumn/CategoryTabs/ProductionCatBtn
+@onready var defense_cat_btn: Button = $BuildingsPanel/ContentColumn/CategoryTabs/DefenseCatBtn
+@onready var buildings_grid: GridContainer = $BuildingsPanel/ContentColumn/BuildingsGrid
 @onready var demolish_bar: Control = $DemolishBar
 @onready var demolish_button: Button = $DemolishBar/DemolishButton
 
+@onready var page_nav: HBoxContainer = $BuildingsPanel/ContentColumn/PageNav
+@onready var first_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/FirstPageButton
+@onready var prev_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/PrevPageButton
+@onready var page_label: Label = $BuildingsPanel/ContentColumn/PageNav/PageLabel
+@onready var next_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/NextPageButton
+@onready var last_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/LastPageButton
+
 const BUILDINGS_DATA_PATH := "res://data/buildings/"
+const BUILDINGS_PER_PAGE := 4  # 2 colonne x 2 righe, come da riferimento FoE
+var _current_page: int = 0
 
 # Cache di tutte le BuildingData caricate, per non rileggere il disco
 # ogni volta che si cambia categoria.
@@ -85,6 +94,11 @@ func _ready() -> void:
 	_load_all_buildings()
 	_select_category(BuildingData.Category.HOUSING)
 	
+	first_page_button.pressed.connect(func(): _go_to_page(0))
+	prev_page_button.pressed.connect(func(): _go_to_page(_current_page - 1))
+	next_page_button.pressed.connect(func(): _go_to_page(_current_page + 1))
+	last_page_button.pressed.connect(func(): _go_to_page(_get_max_page()))
+	
 	# Fissiamo l'anchor via codice invece di fidarci del preset impostato
 	# a mano nell'editor: è la root cause del bug "pannello fuori schermo
 	# in alto" — l'anchor Bottom Left non si era applicato correttamente
@@ -94,6 +108,7 @@ func _ready() -> void:
 	buildings_panel.offset_top = buildings_panel.offset_bottom - BUILDINGS_PANEL_HEIGHT
 	await get_tree().process_frame
 	_buildings_panel_base_y = buildings_panel.position.y
+
 
 const PANEL_ANIM_DURATION := 0.2
 const PANEL_HIDDEN_OFFSET_Y := 260.0  # deve combaciare con l'altezza del pannello
@@ -178,6 +193,7 @@ func _load_all_buildings() -> void:
 
 func _select_category(category: BuildingData.Category) -> void:
 	_current_category = category
+	_current_page = 0
 	_refresh_buildings_grid()
 
 
@@ -188,14 +204,46 @@ func _refresh_buildings_grid() -> void:
 	for child in buildings_grid.get_children():
 		child.queue_free()
 
-	for data in _all_buildings:
-		if data.category != _current_category:
-			continue
+	var filtered := _get_filtered_buildings()
+	var start_index := _current_page * BUILDINGS_PER_PAGE
+	var end_index: int = min(start_index + BUILDINGS_PER_PAGE, filtered.size())
+
+	for i in range(start_index, end_index):
+		var data := filtered[i]
 		var btn := Button.new()
 		btn.text = "%s\n%s" % [data.display_name, _format_cost(data.cost)]
 		btn.custom_minimum_size = Vector2(120, 60)
 		btn.pressed.connect(func(): _on_building_selected(data))
 		buildings_grid.add_child(btn)
+
+	_update_page_nav()
+
+
+func _get_filtered_buildings() -> Array[BuildingData]:
+	var filtered: Array[BuildingData] = []
+	for data in _all_buildings:
+		if data.category == _current_category:
+			filtered.append(data)
+	return filtered
+
+
+func _get_max_page() -> int:
+	var count := _get_filtered_buildings().size()
+	return max(0, ceili(float(count) / BUILDINGS_PER_PAGE) - 1)
+
+
+func _go_to_page(page: int) -> void:
+	_current_page = clampi(page, 0, _get_max_page())
+	_refresh_buildings_grid()
+
+
+func _update_page_nav() -> void:
+	var max_page := _get_max_page()
+	page_label.text = "%d/%d" % [_current_page + 1, max_page + 1]
+	first_page_button.disabled = _current_page == 0
+	prev_page_button.disabled = _current_page == 0
+	next_page_button.disabled = _current_page == max_page
+	last_page_button.disabled = _current_page == max_page
 
 
 func _format_cost(cost: Dictionary) -> String:
