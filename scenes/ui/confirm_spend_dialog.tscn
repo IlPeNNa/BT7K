@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://db24ri5817c8o"]
+
+[ext_resource type="Script" uid="uid://cpegxkj4lg12y" path="res://scenes/ui/confirm_spend_dialog.gd" id="1_clah6"]
+
+[node name="ConfirmSpendDialog" type="Control" unique_id=1969965451]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_clah6")
+
+[node name="DimBackground" type="ColorRect" parent="." unique_id=991737684]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.1882353)
+
+[node name="ModalPanel" type="PanelContainer" parent="." unique_id=1006178462]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -33.0
+offset_right = 20.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="ModalPanel" unique_id=783462860]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="ModalPanel/Margin" unique_id=1216134884]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="ModalPanel/Margin/Content" unique_id=1393310098]
+layout_mode = 2
+text = "Confermi la costruzione?"
+
+[node name="BuildingNameLabel" type="Label" parent="ModalPanel/Margin/Content" unique_id=969509266]
+layout_mode = 2
+
+[node name="CostList" type="VBoxContainer" parent="ModalPanel/Margin/Content" unique_id=210421178]
+layout_mode = 2
+
+[node name="ButtonsRow" type="HBoxContainer" parent="ModalPanel/Margin/Content" unique_id=1205695036]
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="ModalPanel/Margin/Content/ButtonsRow" unique_id=1807482597]
+layout_mode = 2
+text = "Conferma"
+
+[node name="CancelButton" type="Button" parent="ModalPanel/Margin/Content/ButtonsRow" unique_id=1782719448]
+layout_mode = 2
+text = "Annulla"

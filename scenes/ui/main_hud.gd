@@ -91,7 +91,20 @@ func _ready() -> void:
 		any_menu_action.emit()
 		_toggle_panel(null)
 	)
-
+	
+	housing_cat_btn.pressed.connect(func():
+		any_menu_action.emit()
+		_select_category(BuildingData.Category.HOUSING)
+	)
+	production_cat_btn.pressed.connect(func():
+		any_menu_action.emit()
+		_select_category(BuildingData.Category.PRODUCTION)
+	)
+	defense_cat_btn.pressed.connect(func():
+		any_menu_action.emit()
+		_select_category(BuildingData.Category.DEFENSE)
+	)
+	
 	housing_cat_btn.pressed.connect(func(): _select_category(BuildingData.Category.HOUSING))
 	production_cat_btn.pressed.connect(func(): _select_category(BuildingData.Category.PRODUCTION))
 	defense_cat_btn.pressed.connect(func(): _select_category(BuildingData.Category.DEFENSE))

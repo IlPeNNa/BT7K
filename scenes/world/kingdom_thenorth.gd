@@ -29,6 +29,7 @@ const GREAT_HALL_START_CELL: Vector2i = Vector2i(4,4)
 @onready var main_hud: Control = $UILayer/MainHud
 @onready var building_action_bar: Control = $UILayer/BuildingActionBar
 @onready var info_modal: Control = $UILayer/InfoModal
+@onready var confirm_spend_dialog: Control = $UILayer/ConfirmSpendDialog
 
 @onready var camera: Camera2D = $Camera2D
 
@@ -46,6 +47,8 @@ var _is_left_button_held: bool = false
 var _is_dragging_camera: bool = false
 var _drag_press_position: Vector2 = Vector2.ZERO
 var _camera_tween: Tween = null
+var _pending_placement_data: BuildingData = null
+var _pending_placement_cell: Vector2i = Vector2i.ZERO
 
 func _ready() -> void:
 	var diamond_points := PackedVector2Array([
@@ -63,9 +66,13 @@ func _ready() -> void:
 	main_hud.demolish_mode_toggled.connect(_on_demolish_mode_toggled)
 	main_hud.buildings_menu_closed.connect(_on_buildings_menu_closed)
 	main_hud.any_menu_action.connect(building_action_bar.hide_panel)
+	main_hud.any_menu_action.connect(_cancel_placement_selection)
 	building_action_bar.info_requested.connect(_on_info_requested)
 	info_modal.closed.connect(building_action_bar.show_again)
-
+	confirm_spend_dialog.confirmed.connect(_on_placement_confirmed)
+	confirm_spend_dialog.cancelled.connect(_on_placement_cancelled)
+	
+	
 	if SaveManager.load_requested:
 		SaveManager.load_requested = false
 		load_game()
@@ -143,13 +150,13 @@ func _on_building_selected(building: BuildingData) -> void:
 
 func _on_demolish_mode_toggled(active: bool) -> void:
 	_is_demolish_mode = active
-	ghost.visible = false
+	_cancel_placement_selection()
 
 ## Chiamata alla chiusura del menu Edifici: annulla qualunque selezione di
 ## piazzamento in corso, altrimenti il ghost resterebbe visibile e
 ## trascinabile anche a menu chiuso.
 func _on_buildings_menu_closed() -> void:
-	ghost.visible = false
+	_cancel_placement_selection()
 
 
 func _on_info_requested(building: Sprite2D) -> void:
@@ -180,6 +187,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_zoom_camera(ZOOM_STEP)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
 			_zoom_camera(-ZOOM_STEP)
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			_cancel_placement_selection()
 		elif event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				_is_left_button_held = true
@@ -203,7 +212,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _is_dragging_camera:
 			camera.position -= event.relative * camera.zoom
 	elif event is InputEventKey and event.pressed:
+		# Qualunque tasto premuto chiude la barra azione: copre anche
+		# l'apertura del Pause Menu con ESC, che prima restava scoperta.
 		building_action_bar.hide_panel()
+		_cancel_placement_selection()
 
 
 	elif event is InputEventMouseMotion and _is_left_button_held:
@@ -216,10 +228,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			# diversa di spazio di gioco (più zoomati = meno spazio percorso
 			# a parità di pixel trascinati).
 			camera.position -= event.relative * camera.zoom
-	elif event is InputEventKey and event.pressed:
-		# Qualunque tasto premuto chiude la barra azione: copre anche
-		# l'apertura del Pause Menu con ESC, che prima restava scoperta.
-		building_action_bar.hide_panel()
 
 
 func _zoom_camera(delta_zoom: float) -> void:
@@ -239,6 +247,14 @@ func _center_camera_on(target_position: Vector2) -> void:
 	_camera_tween.tween_property(camera, "position", target_position, CAMERA_CENTER_DURATION).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 
 
+## Annulla la selezione di piazzamento in corso: nasconde il ghost preview.
+## Centralizzata qui invece di scrivere "ghost.visible = false" sparso in
+## più punti, così ogni futuro punto di cancellazione (nuovi pulsanti UI,
+## apertura di altri popup) chiama sempre la stessa funzione.
+func _cancel_placement_selection() -> void:
+	ghost.visible = false
+
+
 func _try_place_building() -> void:
 	if not ghost.visible:
 		return
@@ -246,10 +262,36 @@ func _try_place_building() -> void:
 		return
 	if not _warm_cells.has(_current_cell):
 		return
+	if not ResourceManager.can_afford(selected_building.cost):
+		return
+
+	if SettingsManager.is_confirm_resource_spending_enabled():
+		_cancel_placement_selection()
+		_pending_placement_data = selected_building
+		_pending_placement_cell = _current_cell
+		confirm_spend_dialog.open_for(selected_building)
+		return
+
 	if not ResourceManager.spend(selected_building.cost):
 		return
 	_instantiate_building_at_cell(selected_building, _current_cell)
 
+
+func _on_placement_confirmed() -> void:
+	if _pending_placement_data == null:
+		return
+	if not ResourceManager.spend(_pending_placement_data.cost):
+		NotificationManager.notify("Risorse insufficienti.", NotificationManager.NotificationType.WARNING)
+		_pending_placement_data = null
+		return
+	_instantiate_building_at_cell(_pending_placement_data, _pending_placement_cell)
+	_pending_placement_data = null
+	ghost.visible = true
+
+
+func _on_placement_cancelled() -> void:
+	_pending_placement_data = null
+	ghost.visible = true
 
 func _try_demolish_building() -> void:
 	var mouse_local: Vector2 = building_grid.get_local_mouse_position()
@@ -287,7 +329,8 @@ func _try_select_building() -> void:
 	var building: Sprite2D = occupied_cells[cell]
 	building.on_selected()
 	building_action_bar.show_for_building(building)
-	_center_camera_on(building.global_position)
+	if SettingsManager.is_camera_focus_enabled():
+		_center_camera_on(building.global_position)
 
 
 ## Controlla se il click è avvenuto sull'icona "pronto" fluttuante di un
