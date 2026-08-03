@@ -22,9 +22,12 @@ func _ready() -> void:
 	cancel_button.pressed.connect(_on_cancel_pressed)
 
 
-func open_for(data: BuildingData) -> void:
-	building_name_label.text = data.display_name
-	_populate_costs(data.cost)
+## Generico: qualunque azione che spende risorse può aprire questo dialog,
+## non solo il piazzamento edifici. "title" è il nome mostrato in cima
+## (es. nome edificio, nome tecnologia), "cost" il Dictionary risorsa->importo.
+func open_with(title: String, cost: Dictionary) -> void:
+	building_name_label.text = title
+	_populate_costs(cost)
 	visible = true
 
 

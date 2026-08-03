@@ -26,19 +26,19 @@ signal any_menu_action
 @onready var inventory_tab: Button = $BottomBar/TabRow/InventoryTab
 
 @onready var buildings_panel: Control = $BuildingsPanel
-@onready var housing_cat_btn: Button = $BuildingsPanel/ContentColumn/CategoryTabs/HousingCatBtn
-@onready var production_cat_btn: Button = $BuildingsPanel/ContentColumn/CategoryTabs/ProductionCatBtn
-@onready var defense_cat_btn: Button = $BuildingsPanel/ContentColumn/CategoryTabs/DefenseCatBtn
-@onready var buildings_grid: GridContainer = $BuildingsPanel/ContentColumn/BuildingsGrid
+@onready var housing_cat_btn: Button = $BuildingsPanel/MainRow/CategoryTabs/HousingCatBtn
+@onready var production_cat_btn: Button = $BuildingsPanel/MainRow/CategoryTabs/ProductionCatBtn
+@onready var defense_cat_btn: Button = $BuildingsPanel/MainRow/CategoryTabs/DefenseCatBtn
+@onready var buildings_grid: GridContainer = $BuildingsPanel/MainRow/ContentColumn/BuildingsGrid
 @onready var demolish_bar: Control = $DemolishBar
 @onready var demolish_button: Button = $DemolishBar/DemolishButton
 
-@onready var page_nav: HBoxContainer = $BuildingsPanel/ContentColumn/PageNav
-@onready var first_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/FirstPageButton
-@onready var prev_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/PrevPageButton
-@onready var page_label: Label = $BuildingsPanel/ContentColumn/PageNav/PageLabel
-@onready var next_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/NextPageButton
-@onready var last_page_button: Button = $BuildingsPanel/ContentColumn/PageNav/LastPageButton
+@onready var page_nav: HBoxContainer = $BuildingsPanel/MainRow/ContentColumn/PageNav
+@onready var first_page_button: Button = $BuildingsPanel/MainRow/ContentColumn/PageNav/FirstPageButton
+@onready var prev_page_button: Button = $BuildingsPanel/MainRow/ContentColumn/PageNav/PrevPageButton
+@onready var page_label: Label = $BuildingsPanel/MainRow/ContentColumn/PageNav/PageLabel
+@onready var next_page_button: Button = $BuildingsPanel/MainRow/ContentColumn/PageNav/NextPageButton
+@onready var last_page_button: Button = $BuildingsPanel/MainRow/ContentColumn/PageNav/LastPageButton
 
 const BUILDINGS_DATA_PATH := "res://data/buildings/"
 const BUILDINGS_PER_PAGE := 4  # 2 colonne x 2 righe, come da riferimento FoE
@@ -164,6 +164,16 @@ func _toggle_buildings_menu() -> void:
 	demolish_bar.visible = opening
 	if not opening:
 		demolish_button.button_pressed = false
+
+
+## Chiude il Menu Edifici se è quello attualmente aperto, senza toccare
+## gli altri pannelli. Pubblico perché va richiamato da fuori (tasto destro
+## in kingdom_thenorth.gd), riusa _toggle_buildings_menu() così l'animazione
+## di chiusura e l'emissione di buildings_menu_closed restano identiche a
+## quando si chiude cliccando la tab Edifici.
+func close_buildings_menu() -> void:
+	if _active_panel == buildings_panel:
+		_toggle_buildings_menu()
 
 
 func _on_demolish_toggled(active: bool) -> void:

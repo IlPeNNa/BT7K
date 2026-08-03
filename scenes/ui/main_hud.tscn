@@ -82,61 +82,65 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3p5rq")
 
-[node name="ContentColumn" type="VBoxContainer" parent="BuildingsPanel" unique_id=1560163717]
+[node name="MainRow" type="HBoxContainer" parent="BuildingsPanel" unique_id=327334036]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ContentColumn" type="VBoxContainer" parent="BuildingsPanel/MainRow" unique_id=1560163717]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="CategoryTabs" type="HBoxContainer" parent="BuildingsPanel/ContentColumn" unique_id=945723067]
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="HousingCatBtn" type="Button" parent="BuildingsPanel/ContentColumn/CategoryTabs" unique_id=601787572]
-layout_mode = 2
-text = "Abitazioni"
-
-[node name="ProductionCatBtn" type="Button" parent="BuildingsPanel/ContentColumn/CategoryTabs" unique_id=915258719]
-layout_mode = 2
-text = "Produzione"
-
-[node name="DefenseCatBtn" type="Button" parent="BuildingsPanel/ContentColumn/CategoryTabs" unique_id=254868238]
-layout_mode = 2
-text = "Difesa"
-
-[node name="BuildingsGrid" type="GridContainer" parent="BuildingsPanel/ContentColumn" unique_id=1587124604]
+[node name="BuildingsGrid" type="GridContainer" parent="BuildingsPanel/MainRow/ContentColumn" unique_id=1587124604]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 2
 
-[node name="PageNav" type="HBoxContainer" parent="BuildingsPanel/ContentColumn" unique_id=1610909653]
+[node name="PageNav" type="HBoxContainer" parent="BuildingsPanel/MainRow/ContentColumn" unique_id=1610909653]
 layout_mode = 2
 
-[node name="FirstPageButton" type="Button" parent="BuildingsPanel/ContentColumn/PageNav" unique_id=646839970]
+[node name="FirstPageButton" type="Button" parent="BuildingsPanel/MainRow/ContentColumn/PageNav" unique_id=646839970]
 layout_mode = 2
 text = "<<"
 
-[node name="PrevPageButton" type="Button" parent="BuildingsPanel/ContentColumn/PageNav" unique_id=508898960]
+[node name="PrevPageButton" type="Button" parent="BuildingsPanel/MainRow/ContentColumn/PageNav" unique_id=508898960]
 layout_mode = 2
 text = "<"
 
-[node name="PageLabel" type="Label" parent="BuildingsPanel/ContentColumn/PageNav" unique_id=363763146]
+[node name="PageLabel" type="Label" parent="BuildingsPanel/MainRow/ContentColumn/PageNav" unique_id=363763146]
 layout_mode = 2
 text = "1/1"
 
-[node name="NextPageButton" type="Button" parent="BuildingsPanel/ContentColumn/PageNav" unique_id=745657488]
+[node name="NextPageButton" type="Button" parent="BuildingsPanel/MainRow/ContentColumn/PageNav" unique_id=745657488]
 layout_mode = 2
 text = ">"
 
-[node name="LastPageButton" type="Button" parent="BuildingsPanel/ContentColumn/PageNav" unique_id=1187611707]
+[node name="LastPageButton" type="Button" parent="BuildingsPanel/MainRow/ContentColumn/PageNav" unique_id=1187611707]
 layout_mode = 2
 text = ">>"
+
+[node name="CategoryTabs" type="VBoxContainer" parent="BuildingsPanel/MainRow" unique_id=1363878016]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HousingCatBtn" type="Button" parent="BuildingsPanel/MainRow/CategoryTabs" unique_id=601787572]
+layout_mode = 2
+text = "Abitazioni"
+
+[node name="ProductionCatBtn" type="Button" parent="BuildingsPanel/MainRow/CategoryTabs" unique_id=915258719]
+layout_mode = 2
+text = "Produzione"
+
+[node name="DefenseCatBtn" type="Button" parent="BuildingsPanel/MainRow/CategoryTabs" unique_id=254868238]
+layout_mode = 2
+text = "Difesa"
 
 [node name="DemolishBar" type="Control" parent="." unique_id=494623196]
 layout_mode = 1

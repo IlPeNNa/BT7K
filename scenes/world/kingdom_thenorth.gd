@@ -72,6 +72,8 @@ func _ready() -> void:
 	confirm_spend_dialog.confirmed.connect(_on_placement_confirmed)
 	confirm_spend_dialog.cancelled.connect(_on_placement_cancelled)
 	
+	GameManager.game_state_changed.connect(_on_game_state_changed)
+	
 	
 	if SaveManager.load_requested:
 		SaveManager.load_requested = false
@@ -188,7 +190,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
 			_zoom_camera(-ZOOM_STEP)
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			_cancel_placement_selection()
+			if ghost.visible:
+				_cancel_placement_selection()
+			else:
+				main_hud.close_buildings_menu()
 		elif event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				_is_left_button_held = true
@@ -255,6 +260,15 @@ func _cancel_placement_selection() -> void:
 	ghost.visible = false
 
 
+## Qualunque uscita da PLAYING (pausa, menu impostazioni aperto sopra la
+## pausa, ecc.) deve annullare il piazzamento in corso: più robusto che
+## intercettare ESC nell'input, perché un _input() a priorità più alta
+## (Pause Menu, Settings) può consumare l'evento prima che arrivi qui.
+func _on_game_state_changed(new_state: GameManager.GameState) -> void:
+	if new_state != GameManager.GameState.PLAYING:
+		_cancel_placement_selection()
+
+
 func _try_place_building() -> void:
 	if not ghost.visible:
 		return
@@ -269,7 +283,7 @@ func _try_place_building() -> void:
 		_cancel_placement_selection()
 		_pending_placement_data = selected_building
 		_pending_placement_cell = _current_cell
-		confirm_spend_dialog.open_for(selected_building)
+		confirm_spend_dialog.open_with(selected_building.display_name, selected_building.cost)
 		return
 
 	if not ResourceManager.spend(selected_building.cost):
