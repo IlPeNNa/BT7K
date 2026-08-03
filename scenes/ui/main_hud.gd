@@ -122,6 +122,10 @@ func _ready() -> void:
 	next_page_button.pressed.connect(func(): _go_to_page(_current_page + 1))
 	last_page_button.pressed.connect(func(): _go_to_page(_get_max_page()))
 	
+	housing_cat_btn.tooltip_text = "Abitazioni"
+	production_cat_btn.tooltip_text = "Produzione"
+	defense_cat_btn.tooltip_text = "Difesa"
+	
 	# Fissiamo l'anchor via codice invece di fidarci del preset impostato
 	# a mano nell'editor: è la root cause del bug "pannello fuori schermo
 	# in alto" — l'anchor Bottom Left non si era applicato correttamente
@@ -129,6 +133,8 @@ func _ready() -> void:
 	buildings_panel.set_anchors_preset(Control.PRESET_BOTTOM_LEFT, Control.PRESET_MODE_KEEP_SIZE)
 	buildings_panel.offset_bottom = -BUILDINGS_PANEL_BOTTOM_MARGIN
 	buildings_panel.offset_top = buildings_panel.offset_bottom - BUILDINGS_PANEL_HEIGHT
+	buildings_panel.offset_left = BUILDINGS_PANEL_LEFT_MARGIN
+	buildings_panel.offset_right = BUILDINGS_PANEL_LEFT_MARGIN + BUILDINGS_PANEL_WIDTH
 	await get_tree().process_frame
 	_buildings_panel_base_y = buildings_panel.position.y
 
@@ -137,7 +143,8 @@ const PANEL_ANIM_DURATION := 0.2
 const PANEL_HIDDEN_OFFSET_Y := 260.0  # deve combaciare con l'altezza del pannello
 const BUILDINGS_PANEL_HEIGHT := 220.0
 const BUILDINGS_PANEL_BOTTOM_MARGIN := 90.0  # spazio sopra la BottomBar, regola a occhio
-
+const BUILDINGS_PANEL_LEFT_MARGIN := 8.0
+const BUILDINGS_PANEL_WIDTH := 480.0  # provvisorio: aumenta se le card sono ancora tagliate
 
 func _toggle_panel(panel: Control) -> void:
 	if _active_panel != null and _active_panel == panel:
@@ -249,7 +256,7 @@ func _refresh_buildings_grid() -> void:
 		btn.icon = BUILDING_PLACEHOLDER_ICON
 		btn.expand_icon = true
 		btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
+		btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_BOTTOM
 		btn.alignment = HORIZONTAL_ALIGNMENT_CENTER
 		btn.custom_minimum_size = BUILDING_CARD_SIZE
 		btn.pressed.connect(func(): _on_building_selected(data))
