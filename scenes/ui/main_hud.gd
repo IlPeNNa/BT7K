@@ -249,20 +249,27 @@ func _refresh_buildings_grid() -> void:
 	var start_index := _current_page * BUILDINGS_PER_PAGE
 	var end_index: int = min(start_index + BUILDINGS_PER_PAGE, filtered.size())
 
-	for i in range(start_index, end_index):
-		var data := filtered[i]
-		var btn := Button.new()
-		btn.text = data.display_name
-		btn.icon = BUILDING_PLACEHOLDER_ICON
-		btn.expand_icon = true
-		btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_BOTTOM
-		btn.alignment = HORIZONTAL_ALIGNMENT_CENTER
-		btn.custom_minimum_size = BUILDING_CARD_SIZE
-		btn.pressed.connect(func(): _on_building_selected(data))
-		btn.mouse_entered.connect(func(): _show_info_popup(data, btn))
-		btn.mouse_exited.connect(_hide_info_popup)
-		buildings_grid.add_child(btn)
+	for i in range(BUILDINGS_PER_PAGE):
+		var slot_index := start_index + i
+		if slot_index < end_index:
+			var data := filtered[slot_index]
+			var btn := Button.new()
+			btn.text = data.display_name
+			btn.icon = BUILDING_PLACEHOLDER_ICON
+			btn.expand_icon = true
+			btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_BOTTOM
+			btn.alignment = HORIZONTAL_ALIGNMENT_CENTER
+			btn.custom_minimum_size = BUILDING_CARD_SIZE
+			btn.pressed.connect(func(): _on_building_selected(data))
+			buildings_grid.add_child(btn)
+		else:
+			# Slot vuoto: mantiene la geometria 2x2 fissa senza che le card
+			# esistenti "scivolino" a riempire il buco. Non interattivo:
+			# placeholder puro in attesa che ci sia un edificio da mostrare.
+			var empty_slot := Control.new()
+			empty_slot.custom_minimum_size = BUILDING_CARD_SIZE
+			buildings_grid.add_child(empty_slot)
 
 	_update_page_nav()
 

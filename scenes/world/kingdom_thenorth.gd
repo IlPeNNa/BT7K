@@ -324,6 +324,9 @@ func _try_demolish_building() -> void:
 		if refund > 0:
 			ResourceManager.add_resource(resource_name, refund)
 
+	if building.building_data.population_capacity > 0:
+		ResourceManager.remove_population_capacity(building.building_data.population_capacity)
+	
 	building.queue_free()
 	occupied_cells.erase(cell)
 	NotificationManager.notify("Edificio demolito.", NotificationManager.NotificationType.INFO)

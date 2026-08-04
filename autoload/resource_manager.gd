@@ -56,6 +56,17 @@ func add_population_capacity(amount: int) -> void:
 	population_current = population_max
 	population_changed.emit(population_current, population_max)
 
+func remove_population_capacity(amount: int) -> void:
+	# Simmetrico ad add_population_capacity, ma robusto anche se in futuro
+	# population_current diverge da population_max (eventi, carestie, ecc.):
+	# abbassiamo solo il tetto, e "espelliamo" l'eccedenza se necessario.
+	# Non tocchiamo mai population_current se è già sotto il nuovo max.
+	if amount <= 0:
+		return
+	population_max = max(0, population_max - amount)
+	population_current = min(population_current, population_max)
+	population_changed.emit(population_current, population_max)
+
 func reset_resources(new_resources: Dictionary) -> void:
 	# Usato dal caricamento: sostituisce le risorse attuali con quelle salvate
 	# ed emette il segnale per ogni risorsa, così la TopBar si aggiorna subito.

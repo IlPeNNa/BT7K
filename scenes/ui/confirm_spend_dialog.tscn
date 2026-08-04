@@ -52,11 +52,16 @@ layout_mode = 2
 
 [node name="ButtonsRow" type="HBoxContainer" parent="ModalPanel/Margin/Content" unique_id=1205695036]
 layout_mode = 2
-
-[node name="ConfirmButton" type="Button" parent="ModalPanel/Margin/Content/ButtonsRow" unique_id=1807482597]
-layout_mode = 2
-text = "Conferma"
+theme_override_constants/separation = 12
+alignment = 1
 
 [node name="CancelButton" type="Button" parent="ModalPanel/Margin/Content/ButtonsRow" unique_id=1782719448]
 layout_mode = 2
 text = "Annulla"
+
+[node name="ConfirmButton" type="Button" parent="ModalPanel/Margin/Content/ButtonsRow" unique_id=1807482597]
+layout_mode = 2
+theme_override_constants/outline_size = 0
+theme_override_constants/h_separation = 4
+theme_override_constants/line_spacing = 0
+text = "Conferma"
