@@ -1,6 +1,16 @@
 [gd_scene format=3 uid="uid://h7w3cuxdbluy"]
 
 [ext_resource type="Script" uid="uid://dg1dfwn8o8ojo" path="res://scenes/ui/top_bar.gd" id="1_xsohi"]
+[ext_resource type="Script" uid="uid://bhjpfgo6h4kbc" path="res://scenes/ui/kingdom_points_star.gd" id="2_2hv2y"]
+[ext_resource type="Texture2D" uid="uid://dwo22c23ir74x" path="res://assets/sprites/ui/kingdom_points_star/star-base.svg" id="2_efuiy"]
+[ext_resource type="Texture2D" uid="uid://1grle8nscns" path="res://assets/sprites/ui/kingdom_points_star/point-1.svg" id="3_2hv2y"]
+[ext_resource type="Texture2D" uid="uid://bknnq534vwalm" path="res://assets/sprites/ui/kingdom_points_star/point-2.svg" id="4_f7tw3"]
+[ext_resource type="Texture2D" uid="uid://dg6ulx03ldssd" path="res://assets/sprites/ui/kingdom_points_star/point-3.svg" id="5_uf6kr"]
+[ext_resource type="Texture2D" uid="uid://dsdw23c831yn2" path="res://assets/sprites/ui/kingdom_points_star/point-4.svg" id="6_ewd7c"]
+[ext_resource type="Texture2D" uid="uid://dudtvk2fya13b" path="res://assets/sprites/ui/kingdom_points_star/point-5.svg" id="7_3snn5"]
+[ext_resource type="Texture2D" uid="uid://uowlhqrn17u5" path="res://assets/sprites/ui/kingdom_points_star/point-6.svg" id="8_0gda0"]
+[ext_resource type="Texture2D" uid="uid://c47sb47wcv5ya" path="res://assets/sprites/ui/kingdom_points_star/point-7.svg" id="9_8e7ce"]
+[ext_resource type="Texture2D" uid="uid://fkckp0sir2o7" path="res://assets/sprites/ui/kingdom_points_star/center-glow.svg" id="10_7dch6"]
 
 [node name="TopBar" type="Control" unique_id=508135795]
 custom_minimum_size = Vector2(0, 50)
@@ -11,18 +21,178 @@ grow_horizontal = 2
 script = ExtResource("1_xsohi")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2053851308]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="KingdomNameLabel" type="Label" parent="HBoxContainer" unique_id=799238231]
+layout_mode = 2
+text = "Il Nord"
+
+[node name="KingdomInterfaceLabel" type="Label" parent="HBoxContainer" unique_id=2085996536]
+layout_mode = 2
+
+[node name="PopulationLabel" type="Label" parent="HBoxContainer" unique_id=1801722128]
+layout_mode = 2
+
+[node name="CurrencyButton" type="Button" parent="HBoxContainer" unique_id=1554816866]
+layout_mode = 2
+text = "Valute"
+
+[node name="CenterSpacer" type="Control" parent="HBoxContainer" unique_id=1833569508]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SuppliesButton" type="Button" parent="HBoxContainer" unique_id=669228442]
+layout_mode = 2
+text = "Supplies"
+
+[node name="GoodsButton" type="Button" parent="HBoxContainer" unique_id=129826544]
+layout_mode = 2
+text = "Goods"
+
+[node name="HelpButton" type="Button" parent="HBoxContainer" unique_id=143881509]
+layout_mode = 2
+text = "?"
+
+[node name="SettingsButton" type="Button" parent="HBoxContainer" unique_id=1412063146]
+layout_mode = 2
+text = "⚙"
+
+[node name="KingdomPointsStar" type="Control" parent="." unique_id=1320310767]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("2_2hv2y")
 
-[node name="WoodLabel" type="Label" parent="HBoxContainer" unique_id=799238231]
-layout_mode = 2
+[node name="BaseLayer" type="TextureRect" parent="KingdomPointsStar" unique_id=1555361735]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_efuiy")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="StoneLabel" type="Label" parent="HBoxContainer" unique_id=2085996536]
-layout_mode = 2
+[node name="Point1" type="TextureRect" parent="KingdomPointsStar" unique_id=350840127]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_2hv2y")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="FoodLabel" type="Label" parent="HBoxContainer" unique_id=890768896]
-layout_mode = 2
+[node name="Point2" type="TextureRect" parent="KingdomPointsStar" unique_id=120077348]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_f7tw3")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="PopLabel" type="Label" parent="HBoxContainer" unique_id=364868944]
-layout_mode = 2
+[node name="Point3" type="TextureRect" parent="KingdomPointsStar" unique_id=680248435]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_uf6kr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Point4" type="TextureRect" parent="KingdomPointsStar" unique_id=1030854493]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_ewd7c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Point5" type="TextureRect" parent="KingdomPointsStar" unique_id=422052518]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_3snn5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Point6" type="TextureRect" parent="KingdomPointsStar" unique_id=826474931]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_0gda0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Point7" type="TextureRect" parent="KingdomPointsStar" unique_id=1055974045]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_8e7ce")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterGlow" type="TextureRect" parent="KingdomPointsStar" unique_id=950622043]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_7dch6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TimerLabel" type="Label" parent="KingdomPointsStar" unique_id=1153961310]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -6.0
+offset_right = 0.5
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="PointsCounterLabel" type="Label" parent="KingdomPointsStar" unique_id=814793579]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 10.0
+offset_right = 20.0
+offset_bottom = 33.00007
+grow_horizontal = 2
+grow_vertical = 2

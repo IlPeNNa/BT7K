@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <radialGradient id="tipGlow4" cx="33.1%" cy="85.1%" r="70%">
+      <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.95"/>
+      <stop offset="15%" stop-color="#ffd700" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#ffd700" stop-opacity="0.55"/>
+      <stop offset="70%" stop-color="#ffecb3" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffd700" stop-opacity="0.05"/>
+    </radialGradient>
+    <linearGradient id="axialGlow4" 
+      x1="33.1%" y1="85.1%"
+      x2="53.8%" y2="42.2%">
+      <stop offset="0%" stop-color="#fff8dc" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#ffd700" stop-opacity="0.9"/>
+      <stop offset="70%" stop-color="#ffd700" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#ffecb3" stop-opacity="0.35"/>
+    </linearGradient>
+    <filter id="softGlow4" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- FIXED: userSpaceOnUse so vertical spine line gets full filter region -->
+    <filter id="tightGlow4" filterUnits="userSpaceOnUse"
+      x="0" y="0" width="500" height="500">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Layer 1: Broad radial glow -->
+  <path d="M 165.39,425.69 L 324.63,232.97 Q 267.60,213.45 216.78,181.03 Z" fill="url(#tipGlow4)" filter="url(#softGlow4)" opacity="0.9"/>
+  <!-- Layer 2: Axial gradient (even illumination tip→base) -->
+  <path d="M 165.39,425.69 L 324.63,232.97 Q 267.60,213.45 216.78,181.03 Z" fill="url(#axialGlow4)" filter="url(#tightGlow4)" opacity="0.7"/>
+  <!-- Layer 3: Bright spine core (FIXED: thin rect instead of line) -->
+  <path d="M 166.74,426.34 L 164.04,425.04 L 267.48,210.25 L 270.18,211.56 Z" fill="#fff8dc" opacity="0.45" filter="url(#tightGlow4)"/>
+</svg>

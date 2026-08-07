@@ -44,6 +44,7 @@ const BUILDINGS_DATA_PATH := "res://data/buildings/"
 const BUILDINGS_PER_PAGE := 4  # 2 colonne x 2 righe, come da riferimento FoE
 const BUILDING_PLACEHOLDER_ICON: Texture2D = preload("res://assets/sprites/buildings/block 128.png")
 const BUILDING_CARD_SIZE := Vector2(140, 160)
+const DEMOLISH_BAR_TOP_MARGIN := 90.0  # sotto la stella Kingdom Points, regola a occhio
 const BUILDING_INFO_POPUP_SCENE: PackedScene = preload("res://scenes/ui/building_info_popup.tscn")
 const POPUP_OFFSET := Vector2(12, 0)  # piccolo margine tra bordo pannello e popup
 var _current_page: int = 0
@@ -137,6 +138,7 @@ func _ready() -> void:
 	buildings_panel.offset_right = BUILDINGS_PANEL_LEFT_MARGIN + BUILDINGS_PANEL_WIDTH
 	await get_tree().process_frame
 	_buildings_panel_base_y = buildings_panel.position.y
+	_center_demolish_bar()
 
 
 const PANEL_ANIM_DURATION := 0.2
@@ -145,6 +147,19 @@ const BUILDINGS_PANEL_HEIGHT := 220.0
 const BUILDINGS_PANEL_BOTTOM_MARGIN := 90.0  # spazio sopra la BottomBar, regola a occhio
 const BUILDINGS_PANEL_LEFT_MARGIN := 8.0
 const BUILDINGS_PANEL_WIDTH := 480.0  # provvisorio: aumenta se le card sono ancora tagliate
+
+
+## Centra DemolishBar orizzontalmente in base alla sua larghezza reale
+## (calcolata dal layout, non hardcodata), posizionata sotto la stella
+## Kingdom Points per evitare la sovrapposizione vista in TopBar.
+func _center_demolish_bar() -> void:
+	var bar_width: float = demolish_bar.size.x
+	demolish_bar.set_anchors_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_KEEP_SIZE)
+	demolish_bar.offset_left = -bar_width / 2
+	demolish_bar.offset_right = bar_width / 2
+	demolish_bar.offset_top = DEMOLISH_BAR_TOP_MARGIN
+	demolish_bar.offset_bottom = DEMOLISH_BAR_TOP_MARGIN + demolish_bar.size.y
+
 
 func _toggle_panel(panel: Control) -> void:
 	if _active_panel != null and _active_panel == panel:

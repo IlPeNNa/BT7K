@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.06"/>
+      <stop offset="70%" stop-color="#c9a84c" stop-opacity="0.02"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="250" cy="250" r="126.75" fill="url(#innerGlow)"/>
+  <circle cx="250" cy="250" r="217" fill="none" stroke="#8b7635" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.5"/>
+    <circle cx="250" cy="250" r="207" fill="none" stroke="#8b7635" stroke-width="0.8" opacity="0.35"/>
+    <circle cx="250.00" cy="49.00" r="2.5" fill="#6b5a28" opacity="0.6"/>
+    <circle cx="407.15" cy="124.68" r="2.5" fill="#6b5a28" opacity="0.6"/>
+    <circle cx="445.96" cy="294.73" r="2.5" fill="#6b5a28" opacity="0.6"/>
+    <circle cx="337.21" cy="431.09" r="2.5" fill="#6b5a28" opacity="0.6"/>
+    <circle cx="162.79" cy="431.09" r="2.5" fill="#6b5a28" opacity="0.6"/>
+    <circle cx="54.04" cy="294.73" r="2.5" fill="#6b5a28" opacity="0.6"/>
+    <circle cx="92.85" cy="124.68" r="2.5" fill="#6b5a28" opacity="0.6"/>
+    <circle cx="250.00" cy="293.39" r="1.8" fill="none" stroke="#4a3f1f" stroke-width="0.6" opacity="0.4"/>
+    <circle cx="216.08" cy="277.05" r="1.8" fill="none" stroke="#4a3f1f" stroke-width="0.6" opacity="0.4"/>
+    <circle cx="207.70" cy="240.34" r="1.8" fill="none" stroke="#4a3f1f" stroke-width="0.6" opacity="0.4"/>
+    <circle cx="231.17" cy="210.91" r="1.8" fill="none" stroke="#4a3f1f" stroke-width="0.6" opacity="0.4"/>
+    <circle cx="268.83" cy="210.91" r="1.8" fill="none" stroke="#4a3f1f" stroke-width="0.6" opacity="0.4"/>
+    <circle cx="292.30" cy="240.34" r="1.8" fill="none" stroke="#4a3f1f" stroke-width="0.6" opacity="0.4"/>
+    <circle cx="283.92" cy="277.05" r="1.8" fill="none" stroke="#4a3f1f" stroke-width="0.6" opacity="0.4"/>
+    <line x1="250.00" y1="228.30" x2="250.00" y2="213.12" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+    <line x1="266.96" y1="236.47" x2="278.84" y2="227.00" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+    <line x1="271.15" y1="254.83" x2="285.96" y2="258.21" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+    <line x1="259.41" y1="269.55" x2="266.00" y2="283.23" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+    <line x1="240.59" y1="269.55" x2="234.00" y2="283.23" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+    <line x1="228.85" y1="254.83" x2="214.04" y2="258.21" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+    <line x1="233.04" y1="236.47" x2="221.16" y2="227.00" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+    <circle cx="250" cy="250" r="15.19" fill="none" stroke="#4a3f1f" stroke-width="0.8" opacity="0.3"/>
+    <path d="M 250.00,240.89 L 251.65,246.58 L 257.12,244.32 L 253.70,249.16 L 258.88,252.03 L 252.97,252.37 L 253.95,258.21 L 250.00,253.80 L 246.05,258.21 L 247.03,252.37 L 241.12,252.03 L 246.30,249.16 L 242.88,244.32 L 248.35,246.58 Z" fill="none" stroke="#4a3f1f" stroke-width="0.5" opacity="0.25"/>
+  <path d="M 250.00,55.00 L 334.61,425.69 L 97.54,128.42 L 440.11,293.39 L 59.89,293.39 L 402.46,128.42 L 165.39,425.69 Z" fill="#c9a84c" fill-opacity="0.05"
+        stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"
+        fill-rule="evenodd"/>
+</svg>

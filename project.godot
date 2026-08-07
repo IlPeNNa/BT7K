@@ -26,6 +26,7 @@ ResourceManager="*uid://texbpy7cp3xx"
 SaveManager="*uid://vwgfld8qr0ev"
 NotificationManager="*uid://co1pxe0vnvu5w"
 SettingsManager="*uid://2k36kntuba2u"
+KingdomPointsManager="*uid://oa8olrr0fb4y"
 
 [display]
 
