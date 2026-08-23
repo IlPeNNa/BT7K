@@ -1,7 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
 *.tmp
-*.import
 
 # OS specific
 .DS_Store
