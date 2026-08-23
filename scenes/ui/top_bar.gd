@@ -15,6 +15,7 @@ extends Control
 @onready var help_button: Button = $HBoxContainer/HelpButton
 @onready var settings_button: Button = $HBoxContainer/SettingsButton
 @onready var kingdom_points_star: Control = $KingdomPointsStar
+var _population_slot: Control = null
 
 # Placeholder in attesa del sistema di zone/regni: per ora un solo Regno
 # esiste (Il Nord), quindi il nome è fisso qui invece di essere passato
@@ -29,7 +30,7 @@ const KINGDOM_INTERFACE_PLACEHOLDER: String = "Grande Inverno"
 
 const KINGDOM_POINTS_STAR_SIZE := Vector2(140, 140)
 const KINGDOM_POINTS_STAR_OVERLAP := 24.0  # quanto "invade" sopra il bordo della barra, regola a occhio
-const TOP_BAR_HEIGHT := 50.0
+const TOP_BAR_HEIGHT := 64.0
 
 const TOPBAR_ASSETS_PATH := "res://assets/sprites/ui/topbar/"
 
@@ -37,6 +38,8 @@ const TOPBAR_BACKGROUND_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "topba
 const ICON_BUTTON_FRAME_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "icon_button_frame.png")
 const SETTINGS_ICON_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "settings_icon.png")
 const HELP_ICON_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "help_icon.png")
+const RESOURCE_SLOT_SCENE: PackedScene = preload("res://scenes/ui/resource_slot.tscn")
+const POPULATION_ICON_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "population_icon.png")
 
 # Margini del 9-slice: quanto dei bordi/rivetti resta fisso quando lo
 # sfondo si allunga in orizzontale. Regola a occhio se non torna bene.
@@ -57,6 +60,12 @@ func _ready() -> void:
 	offset_top = 0
 	offset_bottom = TOP_BAR_HEIGHT
 	
+	$HBoxContainer.set_anchors_preset(Control.PRESET_TOP_WIDE, Control.PRESET_MODE_KEEP_SIZE)
+	$HBoxContainer.offset_left = 12
+	$HBoxContainer.offset_right = -12
+	$HBoxContainer.offset_top = 4
+	$HBoxContainer.offset_bottom = 46  # resta nella zona sempre opaca del pannello, sotto sfuma per design
+	
 	_apply_background_style()
 	_apply_icon_button_style(help_button, HELP_ICON_TEXTURE)
 	_apply_icon_button_style(settings_button, SETTINGS_ICON_TEXTURE)
@@ -66,6 +75,11 @@ func _ready() -> void:
 
 	ResourceManager.population_changed.connect(_on_population_changed)
 	_update_population_label(ResourceManager.population_current, ResourceManager.population_max)
+	pop_label.visible = false
+	_population_slot = RESOURCE_SLOT_SCENE.instantiate()
+	$HBoxContainer.add_child(_population_slot)
+	$HBoxContainer.move_child(_population_slot, pop_label.get_index())
+	_population_slot.setup(POPULATION_ICON_TEXTURE, "%d/%d" % [ResourceManager.population_current, ResourceManager.population_max])
 	
 	# La stella vive fuori da HBoxContainer apposta: la sua posizione deve
 	# restare fissa al centro della barra, indipendentemente da quanti
@@ -110,6 +124,9 @@ func _apply_icon_button_style(button: Button, icon: Texture2D) -> void:
 	button.add_theme_stylebox_override("pressed", frame_style)
 	button.icon = icon
 	button.expand_icon = true
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+	button.add_theme_constant_override("icon_max_width", 26)
 	button.custom_minimum_size = ICON_BUTTON_SIZE
 
 func _on_settings_pressed() -> void:
@@ -126,6 +143,8 @@ func _on_population_changed(current: int, max_pop: int) -> void:
 ## nel modello dati. Placeholder in attesa di quel sistema.
 func _update_population_label(current: int, max_pop: int) -> void:
 	pop_label.text = "Pop: %d/%d" % [current, max_pop]
+	if _population_slot:
+		_population_slot.setup(POPULATION_ICON_TEXTURE, "%d/%d" % [current, max_pop])
 
 
 ## Chiamato da fuori (in futuro, da un sistema di selezione zone) quando
