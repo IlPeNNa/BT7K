@@ -20,6 +20,14 @@ anchor_right = 1.0
 grow_horizontal = 2
 script = ExtResource("1_xsohi")
 
+[node name="Background" type="Panel" parent="." unique_id=1594802008]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2053851308]
 layout_mode = 1
 anchors_preset = 15
@@ -57,11 +65,9 @@ text = "Goods"
 
 [node name="HelpButton" type="Button" parent="HBoxContainer" unique_id=143881509]
 layout_mode = 2
-text = "?"
 
 [node name="SettingsButton" type="Button" parent="HBoxContainer" unique_id=1412063146]
 layout_mode = 2
-text = "⚙"
 
 [node name="KingdomPointsStar" type="Control" parent="." unique_id=1320310767]
 anchors_preset = 0

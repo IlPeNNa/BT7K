@@ -5,6 +5,7 @@ extends Control
 ## sono placeholder in attesa dei sistemi dati corrispondenti (valute,
 ## supplies, goods, kingdom points) — non ancora progettati.
 
+@onready var background: Panel = $Background
 @onready var kingdom_name_label: Label = $HBoxContainer/KingdomNameLabel
 @onready var kingdom_interface_label: Label = $HBoxContainer/KingdomInterfaceLabel
 @onready var pop_label: Label = $HBoxContainer/PopulationLabel
@@ -30,6 +31,20 @@ const KINGDOM_POINTS_STAR_SIZE := Vector2(140, 140)
 const KINGDOM_POINTS_STAR_OVERLAP := 24.0  # quanto "invade" sopra il bordo della barra, regola a occhio
 const TOP_BAR_HEIGHT := 50.0
 
+const TOPBAR_ASSETS_PATH := "res://assets/sprites/ui/topbar/"
+
+const TOPBAR_BACKGROUND_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "topbar_background.png")
+const ICON_BUTTON_FRAME_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "icon_button_frame.png")
+const SETTINGS_ICON_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "settings_icon.png")
+const HELP_ICON_TEXTURE: Texture2D = preload(TOPBAR_ASSETS_PATH + "help_icon.png")
+
+# Margini del 9-slice: quanto dei bordi/rivetti resta fisso quando lo
+# sfondo si allunga in orizzontale. Regola a occhio se non torna bene.
+const BACKGROUND_MARGIN_H := 45.0
+const BACKGROUND_MARGIN_V := 14.0
+
+const ICON_BUTTON_SIZE := Vector2(44, 44)
+
 func _ready() -> void:
 	# Root cause probabile: l'anchor Top Wide applicato da editor con "Keep
 	# Size" non azzera offset_left/offset_right, quindi la barra restava
@@ -41,6 +56,10 @@ func _ready() -> void:
 	offset_right = 0
 	offset_top = 0
 	offset_bottom = TOP_BAR_HEIGHT
+	
+	_apply_background_style()
+	_apply_icon_button_style(help_button, HELP_ICON_TEXTURE)
+	_apply_icon_button_style(settings_button, SETTINGS_ICON_TEXTURE)
 	
 	kingdom_name_label.text = KINGDOM_NAME_PLACEHOLDER
 	kingdom_interface_label.text = "- %s" % KINGDOM_INTERFACE_PLACEHOLDER
@@ -63,8 +82,6 @@ func _ready() -> void:
 	currency_button.text = "Valute"
 	supplies_button.text = "Supplies"
 	goods_button.text = "Goods"
-	help_button.text = "?"
-	settings_button.text = "⚙"
 
 	# Impostazioni è già funzionante: SettingsManager esiste da prima.
 	settings_button.pressed.connect(_on_settings_pressed)
@@ -72,6 +89,28 @@ func _ready() -> void:
 	# Guida: nessun sistema esiste ancora, placeholder silenzioso in attesa.
 	# help_button.pressed non collegato finché non progettiamo cosa deve aprire.
 
+func _apply_background_style() -> void:
+	var style := StyleBoxTexture.new()
+	style.texture = TOPBAR_BACKGROUND_TEXTURE
+	style.texture_margin_left = BACKGROUND_MARGIN_H
+	style.texture_margin_right = BACKGROUND_MARGIN_H
+	style.texture_margin_top = BACKGROUND_MARGIN_V
+	style.texture_margin_bottom = BACKGROUND_MARGIN_V
+	background.add_theme_stylebox_override("panel", style)
+
+
+## Sostituisce il testo placeholder di un bottone con cornice + icona reale.
+## Riusabile per qualunque bottone-icona futuro (Valute/Supplies/Goods
+## avranno probabilmente lo stesso trattamento più avanti).
+func _apply_icon_button_style(button: Button, icon: Texture2D) -> void:
+	var frame_style := StyleBoxTexture.new()
+	frame_style.texture = ICON_BUTTON_FRAME_TEXTURE
+	button.add_theme_stylebox_override("normal", frame_style)
+	button.add_theme_stylebox_override("hover", frame_style)
+	button.add_theme_stylebox_override("pressed", frame_style)
+	button.icon = icon
+	button.expand_icon = true
+	button.custom_minimum_size = ICON_BUTTON_SIZE
 
 func _on_settings_pressed() -> void:
 	SettingsManager.open_settings(self)
