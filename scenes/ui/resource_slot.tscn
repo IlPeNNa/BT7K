@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bhe7txhuah1og" path="res://assets/sprites/ui/topbar/resource_slot_frame.png" id="2_pnx2u"]
 
 [node name="ResourceSlot" type="Control" unique_id=584749834]
-custom_minimum_size = Vector2(0, 44)
+custom_minimum_size = Vector2(110, 44)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_vdg8d")
@@ -19,17 +19,22 @@ grow_vertical = 2
 texture = ExtResource("2_pnx2u")
 stretch_mode = 2
 
-[node name="Content" type="HBoxContainer" parent="." unique_id=435558720]
+[node name="Content" type="Control" parent="." unique_id=1126565522]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="IconWrapper" type="Control" parent="Content" unique_id=665315762]
 custom_minimum_size = Vector2(26, 26)
-layout_mode = 2
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 36.0
+offset_bottom = 36.0
 
 [node name="IconTexture" type="TextureRect" parent="Content/IconWrapper" unique_id=683392458]
 layout_mode = 1
@@ -41,4 +46,8 @@ grow_vertical = 2
 stretch_mode = 5
 
 [node name="ValueLabel" type="Label" parent="Content" unique_id=1186218656]
-layout_mode = 2
+layout_mode = 0
+offset_left = 42.0
+offset_top = 8.0
+offset_right = 100.0
+offset_bottom = 36.0
